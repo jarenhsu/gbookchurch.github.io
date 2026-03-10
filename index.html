@@ -3,133 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GBOOKCHURCH 教會小本本 | 反骨信仰媒體平台</title>
+    <title>GBOOKCHURCH 教會小本本 | 內容媒體平台</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
     
     <style>
-        :root { --primary-orange: #FF7A32; --primary-green: #A2C523; --bg-dark: #0A0A0A; }
+        :root { --primary-orange: #FF7A32; --primary-green: #A2C523; --bg-dark: #080808; }
         body { background-color: var(--bg-dark); color: white; cursor: none; overflow-x: hidden; font-family: 'PingFang TC', sans-serif; }
         
         #cursor { width: 30px; height: 30px; border: 2px solid var(--primary-green); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; background: rgba(162, 197, 35, 0.2); transition: transform 0.1s ease; }
-        .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 30px; transition: all 0.4s ease; }
-        .glass-card:hover { border-color: rgba(255, 255, 255, 0.2); transform: scale(1.03); }
+        .glass-card { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 24px; transition: all 0.4s ease; }
+        .glass-card:hover { background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.15); }
         
-        .btn-orange { background: var(--primary-orange); color: white; box-shadow: 0 10px 20px rgba(255, 122, 50, 0.3); }
-        .btn-green { background: var(--primary-green); color: black; box-shadow: 0 10px 20px rgba(162, 197, 35, 0.3); }
-        .btn-vibrant { transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .btn-vibrant:hover { transform: scale(1.05); shadow: 0 15px 30px rgba(0,0,0,0.5); }
-        
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
-        
-        .video-card { position: relative; overflow: hidden; border-radius: 20px; transition: all 0.5s ease; cursor: pointer; }
-        .video-card:hover { transform: translateY(-10px); box-shadow: 0 30px 60px rgba(0,0,0,0.5); }
-        .video-card-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 60%); opacity: 0; transition: opacity 0.4s; }
-        .video-card:hover .video-card-overlay { opacity: 1; }
+        /* 媒體網格卡片 */
+        .media-item { position: relative; border-radius: 16px; overflow: hidden; aspect-ratio: 16/9; cursor: pointer; }
+        .media-item img { transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+        .media-item:hover img { transform: scale(1.1); }
+        .media-overlay { position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, transparent 60%); display: flex; align-items: flex-end; padding: 1.5rem; }
+
+        /* 隱藏捲動條但保留功能 */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
 <body>
     <div id="cursor"></div>
 
-    <section class="h-[90 screen] w-full flex items-center justify-center relative px-6 text-center overflow-hidden">
-        <div class="absolute inset-0 z-0 opacity-40 grayscale">
-            <iframe class="w-full h-full scale-[1.5]" src="https://www.youtube.com/embed/videoseries?list=PL9d9t6kvVqkviKMqcGZwes8a_1qUFIqJg&autoplay=1&mute=1&controls=0&loop=1&playlist=PL9d9t6kvVqkviKMqcGZwes8a_1qUFIqJg" frameborder="0" allow="autoplay"></iframe>
+    <section class="min-h-screen w-full flex items-center justify-center relative px-6 overflow-hidden">
+        <div class="absolute inset-0 z-0 opacity-30">
+            <iframe class="w-full h-full scale-[1.5]" src="https://www.youtube.com/embed/videoseries?list=PL9d9t6kvVqkviKMqcGZwes8a_1qUFIqJg&autoplay=1&mute=1&controls=0&loop=1" frameborder="0"></iframe>
         </div>
-        <div class="absolute inset-0 z-1 bg-gradient-to-t from-var(--bg-dark) via-var(--bg-dark)/80 to-transparent"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/80 to-[#080808] z-1"></div>
         
-        <div id="hero-content" class="relative z-10 max-w-5xl mx-auto">
-            <div class="inline-block px-5 py-1.5 border border-orange-400 text-orange-400 rounded-full text-xs font-black mb-8 tracking-[0.3em] uppercase">FEATURED MEDIA PLATFORM</div>
-            <h1 class="text-7xl md:text-[10rem] font-black tracking-tighter mb-8 leading-none">教會小本本</h1>
-            <p class="text-xl md:text-4xl font-black text-gray-200 mb-12 italic">誠實說出那些被教會消音的心裡話</p>
+        <div id="hero-content" class="relative z-10 text-center max-w-6xl mx-auto pt-20">
+            <h1 class="text-7xl md:text-[11rem] font-black tracking-tighter mb-6 leading-none italic uppercase">教會小本本</h1>
+            <p class="text-xl md:text-3xl font-bold text-gray-400 mb-12 tracking-widest uppercase">Christian Rebel • 100+ Stories • Faith & Life</p>
             <div class="flex flex-wrap justify-center gap-6">
-                <a href="https://www.youtube.com/playlist?list=PL9d9t6kvVqkviKMqcGZwes8a_1qUFIqJg" target="_blank" class="btn-orange btn-vibrant px-14 py-5 rounded-full text-2xl font-black shadow-lg">立即觀看 📺</a>
-                <a href="https://portaly.cc/gbookchurch" target="_blank" class="glass-card btn-vibrant px-12 py-5 rounded-full text-xl font-bold border border-white/20">加入社群 🤝</a>
+                <a href="#featured" class="bg-[#FF7A32] text-white px-12 py-5 rounded-full text-2xl font-black hover:scale-105 transition-transform shadow-[0_0_40px_rgba(255,122,50,0.4)]">立即探索內容 📺</a>
+                <a href="https://portaly.cc/gbookchurch" target="_blank" class="glass-card px-10 py-5 rounded-full text-xl font-bold">查看所有連結 🔗</a>
             </div>
         </div>
     </section>
 
-    <section class="py-24 px-6 max-w-7xl mx-auto reveal">
-        <div class="mb-16 flex items-center justify-between">
-            <h2 class="text-5xl font-black tracking-tight">探索專題</h2>
-            <p class="text-gray-500 font-medium">100+ 集精彩內容持續更新中</p>
+    <section class="py-20 border-y border-white/5 bg-black/40 reveal">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-10 text-center">
+            <div><p class="text-4xl md:text-6xl font-black text-[#A2C523]">100+</p><p class="text-gray-500 font-bold mt-2 tracking-widest">節目集數</p></div>
+            <div><p class="text-4xl md:text-6xl font-black text-[#FF7A32]">2026</p><p class="text-gray-500 font-bold mt-2 tracking-widest">持續更新中</p></div>
+            <div><p class="text-4xl md:text-6xl font-black text-[#A2C523]">MBTI</p><p class="text-gray-500 font-bold mt-2 tracking-widest">性格深度解析</p></div>
+            <div><p class="text-4xl md:text-6xl font-black text-[#FF7A32]">10K+</p><p class="text-gray-500 font-bold mt-2 tracking-widest">心靈觸動</p></div>
+        </div>
+    </section>
+
+    <section id="featured" class="py-32 reveal">
+        <div class="px-6 max-w-7xl mx-auto mb-10 flex items-end justify-between">
+            <div>
+                <span class="text-[#FF7A32] font-black tracking-widest text-sm uppercase">Selected Categories</span>
+                <h2 class="text-5xl font-black mt-2">精選專欄區</h2>
+            </div>
+            <p class="text-gray-500 hidden md:block">左滑查看更多熱門專題 →</p>
         </div>
         
-        <div class="flex flex-wrap gap-4 mb-16 text-sm font-bold">
-            <span class="px-6 py-2 bg-white text-black rounded-full cursor-pointer">全部集數</span>
-            <span class="px-6 py-2 glass-card hover:bg-orange-500 hover:text-white cursor-pointer transition-colors">信仰反思</span>
-            <span class="px-6 py-2 glass-card hover:bg-green-600 hover:text-white cursor-pointer transition-colors">身心健康</span>
-            <span class="px-6 py-2 glass-card hover:bg-orange-500 hover:text-white cursor-pointer transition-colors">聖經 MBTI</span>
-            <span class="px-6 py-2 glass-card hover:bg-green-600 hover:text-white cursor-pointer transition-colors">離婚話題</span>
-            <span class="px-6 py-2 glass-card hover:bg-orange-500 hover:text-white cursor-pointer transition-colors">本本讀書會</span>
-        </div>
-
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div class="video-card group">
-                <div class="aspect-video w-full overflow-hidden bg-gray-800">
+        <div class="flex gap-6 overflow-x-auto px-6 no-scrollbar pb-10">
+            <div class="min-w-[350px] md:min-w-[450px] glass-card overflow-hidden group">
+                <div class="aspect-video bg-gray-900 relative">
                     <iframe class="w-full h-full" src="https://www.youtube.com/embed/videoseries?list=PL9d9t6kvVqkviKMqcGZwes8a_1qUFIqJg&index=1" frameborder="0"></iframe>
                 </div>
-                <div class="p-6">
-                    <span class="text-xs text-orange-500 font-bold mb-2 block">最新上架</span>
-                    <h3 class="text-xl font-black mb-3">信仰省思：從榮耀到低谷的靈魂對談</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed mb-4">我們用誠實，聊聊那些「不喜歡」人家談的事情。從身心健康、信仰省思到離婚故事。</p>
-                </div>
-                <div class="video-card-overlay p-6 flex items-end">
-                    <p class="text-white/80 font-bold text-sm">#教會不愛聊 #真心話</p>
+                <div class="p-8">
+                    <span class="px-3 py-1 bg-[#A2C523]/20 text-[#A2C523] rounded text-xs font-bold">身心健康</span>
+                    <h3 class="text-2xl font-black mt-4 mb-3 group-hover:text-[#FF7A32] transition-colors">牧師也會進精神病院？</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">我們聊聊那些教會不愛聊的事，誠實面對身心健康的掙扎。</p>
                 </div>
             </div>
-             <div class="video-card group">
-                <div class="aspect-video w-full overflow-hidden bg-gray-800">
+            <div class="min-w-[350px] md:min-w-[450px] glass-card overflow-hidden group">
+                <div class="aspect-video bg-gray-900 relative">
                     <iframe class="w-full h-full" src="https://www.youtube.com/embed/videoseries?list=PL9d9t6kvVqkviKMqcGZwes8a_1qUFIqJg&index=3" frameborder="0"></iframe>
                 </div>
-                <div class="p-6">
-                    <span class="text-xs text-green-500 font-bold mb-2 block">熱門集數</span>
-                    <h3 class="text-xl font-black mb-3">MBTI 聖經人格解析：你的靈魂導師是誰？</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed mb-4">透過 12 題測驗，直擊你的信仰靈魂。找出最像你的聖經導師！</p>
-                </div>
-                <div class="video-card-overlay p-6 flex items-end">
-                    <p class="text-white/80 font-bold text-sm">#MBTI #聖經測驗</p>
+                <div class="p-8">
+                    <span class="px-3 py-1 bg-[#FF7A32]/20 text-[#FF7A32] rounded text-xs font-bold">MBTI 專題</span>
+                    <h3 class="text-2xl font-black mt-4 mb-3 group-hover:text-[#A2C523] transition-colors">聖經人物性格解析</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">你的靈魂導師是誰？用 12 題測驗直擊你的信仰靈魂。</p>
                 </div>
             </div>
-             <div class="video-card group">
-                <div class="aspect-video w-full overflow-hidden bg-gray-800">
+            <div class="min-w-[350px] md:min-w-[450px] glass-card overflow-hidden group">
+                <div class="aspect-video bg-gray-900 relative">
                     <iframe class="w-full h-full" src="https://www.youtube.com/embed/videoseries?list=PL9d9t6kvVqkviKMqcGZwes8a_1qUFIqJg&index=5" frameborder="0"></iframe>
                 </div>
-                <div class="p-6">
-                    <span class="text-xs text-orange-500 font-bold mb-2 block">專題系列</span>
-                    <h3 class="text-xl font-black mb-3">牧師也會進精神病院？談身心健康</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed mb-4">聊聊教會「消音」的話題。從身心健康到信仰反思，這不是一本乖乖牌的筆記。</p>
-                </div>
-                <div class="video-card-overlay p-6 flex items-end">
-                    <p class="text-white/80 font-bold text-sm">#身心健康 #信仰衝突</p>
+                <div class="p-8">
+                    <span class="px-3 py-1 bg-[#A2C523]/20 text-[#A2C523] rounded text-xs font-bold">讀書會</span>
+                    <h3 class="text-2xl font-black mt-4 mb-3 group-hover:text-[#FF7A32] transition-colors">本本讀書會：深度省思</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">從書中挖掘那些被隱藏的新洞見，開啟全新的信仰對話。</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="py-32 px-6 flex justify-center reveal">
-        <div class="glass-card p-16 md:p-24 text-center max-w-5xl relative overflow-hidden bg-black/60 shadow-[0_0_80px_rgba(220,38,38,0.1)]">
-            <div class="absolute -top-10 -left-10 text-9xl text-orange-500 opacity-20 rotate-12">📖</div>
-            <div class="absolute -bottom-10 -right-10 text-9xl text-green-600 opacity-20 rotate-12">🤘</div>
-            
-            <h2 class="text-5xl md:text-8xl font-black mb-12 italic text-white tracking-tighter leading-tight">你是哪位<span class="text-green-500">聖經人物？</span></h2>
-            <p class="text-gray-300 text-2xl mb-16 max-w-3xl mx-auto font-medium leading-relaxed">別再聽生硬的講道了！透過 12 題聖經人格測驗，直擊你的信仰靈魂，找出靈魂導師！</p>
-            <a href="https://portaly.cc/gbookchurch" target="_blank" class="btn-green btn-vibrant inline-block px-16 py-6 rounded-full text-black font-black text-2xl tracking-widest shadow-2xl">立即開測 🚀</a>
+    <section class="py-32 px-6 bg-[#A2C523]/5 reveal">
+        <div class="max-w-7xl mx-auto glass-card p-12 md:p-24 flex flex-col md:flex-row gap-16 items-center">
+            <div class="flex-1">
+                <h2 class="text-6xl md:text-8xl font-black tracking-tighter italic leading-none mb-8">你是哪位<br><span class="text-[#FF7A32]">聖經人物？</span></h2>
+                <p class="text-xl text-gray-400 mb-12 font-medium">別再聽生硬的講道了！透過全網最熱門的「聖經人物 MBTI 測驗」，找出最契合你靈魂的信仰導師。</p>
+                <a href="https://portaly.cc/gbookchurch" target="_blank" class="inline-block bg-[#A2C523] text-black px-16 py-6 rounded-full text-2xl font-black shadow-[0_0_50px_rgba(162,197,35,0.3)] hover:scale-105 transition-transform">立即開始測驗 🚀</a>
+            </div>
+            <div class="w-full md:w-1/3 aspect-square bg-[#111] rounded-[60px] flex items-center justify-center text-9xl shadow-inner border border-white/5">📖</div>
         </div>
     </section>
 
     <footer class="py-24 text-center border-t border-white/5">
-        <div class="flex flex-wrap justify-center gap-6 md:gap-16 mb-12 text-lg font-black text-gray-400">
-            <a href="https://www.instagram.com/gbookchurch/" target="_blank" class="hover:text-orange-500 hover:scale-110 transition-transform tracking-widest uppercase">INSTAGRAM</a>
-            <a href="https://portaly.cc/gbookchurch" target="_blank" class="hover:text-green-600 hover:scale-110 transition-transform tracking-widest uppercase">LINE 貼圖</a>
-            <a href="https://portaly.cc/gbookchurch" target="_blank" class="hover:text-white hover:scale-110 transition-transform tracking-widest uppercase">官方網站</a>
-            <a href="https://portaly.cc/gbookchurch" target="_blank" class="hover:text-red-600 hover:scale-110 transition-transform tracking-widest uppercase">贊助支持</a>
+        <div class="flex flex-wrap justify-center gap-10 md:gap-20 mb-16 text-sm font-black tracking-[0.4em] text-gray-400">
+            <a href="https://www.instagram.com/gbookchurch/" target="_blank" class="hover:text-[#FF7A32] transition-colors">INSTAGRAM</a>
+            <a href="https://portaly.cc/gbookchurch" target="_blank" class="hover:text-[#A2C523] transition-colors">LINE 貼圖</a>
+            <a href="https://portaly.cc/gbookchurch" target="_blank" class="hover:text-white transition-colors">贊助支持</a>
         </div>
-        <div class="w-20 h-1 bg-gray-800 mx-auto mb-10 rounded-full"></div>
-        <p class="text-xs text-gray-500 font-black tracking-[0.6em]">KEEP IT REAL • KEEP IT FAITHFUL</p>
-        <p class="text-[10px] mt-4 text-gray-600 italic">© 2026 教會小本本 GBOOKCHURCH MEDIA</p>
+        <p class="text-xs text-gray-600 font-bold tracking-[0.8em] uppercase">Keep it real • Keep it faithful</p>
+        <p class="mt-4 text-[10px] text-gray-800">© 2026 GBOOKCHURCH MEDIA PLATFORM. ALL RIGHTS RESERVED.</p>
     </footer>
 
     <script>
@@ -141,12 +129,12 @@
         window.addEventListener('mousemove', (e) => { gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.4, ease: "power2.out" }); });
         
         gsap.registerPlugin(ScrollTrigger);
-        gsap.from("#hero-content", { opacity: 0, scale: 0.95, y: 30, duration: 2, ease: "expo.out" });
+        gsap.from("#hero-content", { opacity: 0, scale: 0.9, y: 50, duration: 2, ease: "expo.out" });
 
         document.querySelectorAll('.reveal').forEach((el) => {
             gsap.from(el, {
                 scrollTrigger: { trigger: el, start: "top 90%" },
-                opacity: 0, y: 60, scale: 0.98, duration: 1.2, ease: "power3.out"
+                opacity: 0, y: 100, duration: 1.5, ease: "power4.out"
             });
         });
     </script>
