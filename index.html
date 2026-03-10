@@ -11,48 +11,46 @@
     
     <style>
         :root {
-            --primary-orange: #FF8C42;
-            --primary-green: #A2C523;
-            --bg-cream: #FDFBF7;
+            --primary-orange: #FF7A32; /* 飽和度稍高的活力橙 */
+            --primary-green: #88B04B;  /* 經典草綠 */
+            --bg-light: #F9F9F7;
         }
-        body { background-color: var(--bg-cream); color: #333; cursor: none; overflow-x: hidden; font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif; }
+        body { background-color: var(--bg-light); color: #333; cursor: none; overflow-x: hidden; font-family: 'PingFang TC', sans-serif; }
         
-        /* 活潑游標 */
         #cursor {
             width: 35px; height: 35px; border: 3px solid var(--primary-green); border-radius: 50%;
             position: fixed; pointer-events: none; z-index: 9999;
-            background: rgba(162, 197, 35, 0.1);
+            background: rgba(136, 176, 75, 0.15);
             transition: transform 0.1s ease;
         }
 
-        /* 動態背景光暈 */
         .blob {
-            position: absolute; width: 500px; height: 500px; border-radius: 50%;
-            filter: blur(100px); opacity: 0.2; z-index: -1; animation: float 15s infinite alternate;
+            position: absolute; width: 600px; height: 600px; border-radius: 50%;
+            filter: blur(120px); opacity: 0.15; z-index: -1; animation: float 20s infinite alternate;
         }
         @keyframes float {
-            from { transform: translate(-10%, -10%) scale(1); }
-            to { transform: translate(10%, 10%) scale(1.1); }
+            from { transform: translate(-5%, -5%) rotate(0deg); }
+            to { transform: translate(10%, 15%) rotate(20deg); }
         }
 
         .glass-card {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
             border: 2px solid #fff;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
-            border-radius: 50px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.04);
+            border-radius: 40px;
         }
 
-        .btn-orange {
-            background-color: var(--primary-orange);
+        .btn-vibrant {
+            background: var(--primary-orange);
             color: white;
-            box-shadow: 0 10px 20px rgba(255, 140, 66, 0.3);
-            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(255, 122, 50, 0.4);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .btn-orange:hover { transform: scale(1.05) translateY(-3px); box-shadow: 0 15px 30px rgba(255, 140, 66, 0.4); }
+        .btn-vibrant:hover { transform: scale(1.08) rotate(2deg); }
 
         .text-gradient {
-            background: linear-gradient(135deg, var(--primary-orange), var(--primary-green));
+            background: linear-gradient(to right, var(--primary-orange), var(--primary-green));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -62,92 +60,90 @@
 
     <div id="cursor"></div>
 
-    <div class="blob" style="background-color: var(--primary-orange); top: -10%; left: -10%;"></div>
-    <div class="blob" style="background-color: var(--primary-green); bottom: -10%; right: -10%; animation-delay: -5s;"></div>
+    <div class="blob" style="background-color: var(--primary-orange); top: -10%; left: -5%;"></div>
+    <div class="blob" style="background-color: var(--primary-green); bottom: -10%; right: -5%; animation-delay: -7s;"></div>
 
     <section class="h-screen w-full flex flex-col items-center justify-center relative px-6 text-center">
         <div id="hero-content">
-            <span class="inline-block px-4 py-1 bg-green-100 text-green-700 rounded-full text-sm font-bold mb-6 tracking-widest">CHRISTIAN PODCAST</span>
-            <h1 class="text-7xl md:text-9xl font-black tracking-tight mb-4 text-gradient">
+            <div class="inline-block px-6 py-2 bg-orange-100 text-orange-600 rounded-full text-sm font-black mb-8 tracking-widest animate-pulse">
+                NEW EPISODE OUT NOW
+            </div>
+            <h1 class="text-7xl md:text-[10rem] font-black tracking-tighter mb-6 text-gradient leading-none">
                 教會小本本
             </h1>
-            <p id="subtitle" class="text-xl md:text-2xl font-bold text-gray-500 tracking-wider">
-                🤘 用愛心與誠實，聊聊那些不被允許的話題
+            <p class="text-xl md:text-3xl font-bold text-gray-400 max-w-2xl mx-auto leading-relaxed">
+                🤘 聊聊那些被「消音」的信仰心聲
             </p>
         </div>
-        
-        <div class="mt-16 flex gap-3">
-             <div class="w-3 h-3 bg-orange-400 rounded-full animate-bounce"></div>
-             <div class="w-3 h-3 bg-green-400 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
-             <div class="w-3 h-3 bg-orange-400 rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
+        <div class="mt-20 flex gap-4">
+            <div class="w-4 h-4 bg-orange-400 rounded-full animate-bounce"></div>
+            <div class="w-4 h-4 bg-green-400 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+            <div class="w-4 h-4 bg-orange-400 rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
         </div>
     </section>
 
-    <section class="py-20 px-6 max-w-6xl mx-auto">
-        <div class="grid lg:grid-cols-2 gap-10 items-stretch">
-            <div class="glass-card p-12 flex flex-col justify-between reveal">
+    <section class="py-24 px-6 max-w-7xl mx-auto">
+        <div class="grid lg:grid-cols-5 gap-8">
+            <div class="lg:col-span-3 glass-card p-10 md:p-16 flex flex-col justify-between reveal">
                 <div>
-                    <h2 class="text-4xl font-black mb-6 leading-tight">嘿！歡迎進入<br><span class="text-orange-500">反骨</span>信仰空間</h2>
-                    <p class="text-gray-600 text-lg mb-10 leading-relaxed">
-                        我們不說教，我們只說真心話。不論你是基督徒，還是對信仰充滿問號的人，這裡都歡迎你。準備好打開小本本了嗎？
+                    <h2 class="text-5xl font-black mb-8">用愛心與誠實，<br><span class="text-orange-500 underline decoration-green-400 underline-offset-8">說出心裡話。</span></h2>
+                    <p class="text-gray-500 text-xl mb-12 leading-relaxed font-medium">
+                        這不是一本乖乖牌的筆記，這是屬於你的「小本本」。我們不說教，我們只說真心話。
                     </p>
                 </div>
-                <div class="rounded-3xl overflow-hidden shadow-sm">
-                    <iframe style="border-radius:24px" src="https://open.spotify.com/embed/show/5D00R8zG6J8N8fK8U8X8U8?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                
+                <div class="w-full rounded-3xl overflow-hidden shadow-xl">
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/show/3D2bE36Qj2b8XgV6W7tT6J?utm_source=generator&theme=0" width="100%" height="232" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                 </div>
             </div>
 
-            <div class="glass-card p-4 reveal" style="transition-delay: 0.2s">
-                <div class="h-full w-full overflow-hidden rounded-[40px] shadow-inner">
-                    <iframe class="w-full h-full aspect-video" src="https://www.youtube.com/embed/videoseries?list=PL9d9t6kvVqkviKMqcGZwes8a_1qUFIqJg" frameborder="0" allowfullscreen></iframe>
+            <div class="lg:col-span-2 glass-card p-6 reveal" style="transition-delay: 0.2s">
+                <div class="h-full w-full overflow-hidden rounded-[30px] shadow-2xl">
+                    <iframe class="w-full h-full aspect-[9/16]" src="https://www.youtube.com/embed/videoseries?list=PL9d9t6kvVqkviKMqcGZwes8a_1qUFIqJg" title="YouTube playlist" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                 </div>
             </div>
         </div>
     </section>
 
     <section class="py-32 px-6 flex justify-center reveal">
-        <div class="glass-card p-16 md:p-24 text-center max-w-4xl relative overflow-hidden border-none shadow-2xl bg-white/90">
-            <div class="absolute top-0 right-0 p-8 text-6xl opacity-20">✨</div>
-            <div class="absolute bottom-0 left-0 p-8 text-6xl opacity-20 rotate-12">📖</div>
-            
-            <h2 class="text-5xl md:text-6xl font-black mb-8 italic text-gray-800">你是哪位聖經人物？</h2>
-            <p class="text-gray-500 text-xl mb-12 max-w-2xl mx-auto leading-relaxed">
-                別再看死板的經文解釋了！透過 12 題測驗，用最直覺的方式找出你的靈魂導師。
+        <div class="glass-card p-16 md:p-24 text-center max-w-4xl relative overflow-hidden bg-white/60">
+            <div class="text-7xl mb-10">📖</div>
+            <h2 class="text-5xl md:text-7xl font-black mb-10 italic text-gray-800 tracking-tight">你是哪位聖經人物？</h2>
+            <p class="text-gray-500 text-2xl mb-14 max-w-2xl mx-auto font-medium">
+                12 題測驗，直擊你的信仰靈魂。<br>找出最像你的聖經導師！
             </p>
-            <a href="https://portaly.cc/gbookchurch" target="_blank" class="btn-orange inline-block px-14 py-5 rounded-full text-white font-black text-2xl">
-                立即測試 🚀
+            <a href="https://portaly.cc/gbookchurch" target="_blank" class="btn-vibrant inline-block px-16 py-6 rounded-full text-white font-black text-2xl tracking-widest">
+                立即開測 🚀
             </a>
         </div>
     </section>
 
-    <footer class="py-20 text-center text-gray-400">
-        <div class="w-16 h-1 bg-orange-200 mx-auto mb-8 rounded-full"></div>
-        <p class="text-sm tracking-widest font-bold uppercase">Keep it Real. Keep it Faithful.</p>
-        <p class="text-xs mt-4">© 2026 教會小本本 | Podcast Project</p>
+    <footer class="py-24 text-center">
+        <div class="flex justify-center gap-10 mb-12">
+            <a href="https://www.instagram.com/gbookchurch/" target="_blank" class="text-gray-400 hover:text-orange-500 font-bold transition-colors">INSTAGRAM</a>
+            <a href="https://portaly.cc/gbookchurch" target="_blank" class="text-gray-400 hover:text-green-600 font-bold transition-colors">LINKS</a>
+        </div>
+        <p class="text-xs text-gray-300 font-black tracking-[0.5em]">KEEP IT REAL • KEEP IT FAITHFUL</p>
     </footer>
 
     <script>
-        // 1. Lenis Smooth Scroll
         const lenis = new Lenis();
         function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
         requestAnimationFrame(raf);
 
-        // 2. Cursor
         const cursor = document.querySelector('#cursor');
         window.addEventListener('mousemove', (e) => {
             gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.4, ease: "power2.out" });
         });
 
-        // 3. Entry Animations
-        const tl = gsap.timeline();
-        tl.from("#hero-content", { opacity: 0, y: 50, duration: 1.5, ease: "expo.out" });
-
-        // 4. Scroll Reveal
         gsap.registerPlugin(ScrollTrigger);
+        const tl = gsap.timeline();
+        tl.from("#hero-content", { opacity: 0, scale: 0.9, duration: 1.5, ease: "expo.out" });
+
         document.querySelectorAll('.reveal').forEach((el) => {
             gsap.from(el, {
                 scrollTrigger: { trigger: el, start: "top 90%" },
-                opacity: 0, y: 40, duration: 1, ease: "power2.out"
+                opacity: 0, y: 60, scale: 0.95, duration: 1.2, ease: "power3.out"
             });
         });
     </script>
