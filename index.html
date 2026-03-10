@@ -1,1 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>教會小本本 | 基督教反骨 Podcast</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
+    
+    <style>
+        body { background-color: #050505; color: white; cursor: none; overflow-x: hidden; }
+        /* 自定義游標 */
+        #cursor {
+            width: 20px; height: 20px; background: white; border-radius: 50%;
+            position: fixed; pointer-events: none; z-index: 9999; mix-blend-mode: difference;
+            transition: transform 0.1s ease;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .hero-gradient {
+            background: radial-gradient(circle at 50% 50%, #1a0b0b 0%, #050505 100%);
+        }
+    </style>
+</head>
+<body>
 
+    <div id="cursor"></div>
+
+    <section class="h-screen w-full flex flex-col items-center justify-center relative hero-gradient">
+        <div class="absolute w-[500px] h-[500px] bg-red-900/20 rounded-full blur-[120px] -z-10 animate-pulse"></div>
+        
+        <div class="text-center">
+            <h1 id="title" class="text-6xl md:text-8xl font-black tracking-tighter mb-4 opacity-0 translate-y-20">
+                教會小本本
+            </h1>
+            <p id="subtitle" class="text-gray-500 tracking-[0.5em] uppercase text-sm opacity-0">
+                The Unspoken Truth of Faith
+            </p>
+        </div>
+
+        <div class="absolute bottom-10 animate-bounce text-gray-600">
+            SCROLL TO ENTER
+        </div>
+    </section>
+
+    <section class="min-h-screen py-20 px-10 grid md:grid-cols-2 gap-10">
+        <div class="glass-card p-10 rounded-3xl flex flex-col justify-center reveal">
+            <h2 class="text-3xl font-bold mb-6">那些教會不愛聊的事...</h2>
+            <p class="text-gray-400 leading-relaxed mb-8">
+                我們用愛心與誠實，說出心裡話。從 MBTI 到身心健康，從信仰省思到離婚故事。
+                這不是一本乖乖牌的筆記，這是屬於你的「小本本」。
+            </p>
+            <a href="https://portaly.cc/gbookchurch" target="_blank" class="inline-block w-fit px-8 py-3 bg-white text-black rounded-full font-bold hover:scale-105 transition-transform">
+                立即收聽
+            </a>
+        </div>
+        
+        <div class="glass-card p-10 rounded-3xl flex items-center justify-center reveal">
+            <div class="text-center italic text-gray-500">
+                [ 這裡將置放最新的 YouTube 播放列表 ]
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // 1. 初始化 Lenis 平滑捲動
+        const lenis = new Lenis();
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // 2. 自定義游標追蹤
+        const cursor = document.querySelector('#cursor');
+        window.addEventListener('mousemove', (e) => {
+            gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.5, ease: "power3.out" });
+        });
+
+        // 3. 入場動畫
+        const tl = gsap.timeline();
+        tl.to("#title", { opacity: 1, y: 0, duration: 1.5, ease: "expo.out" })
+          .to("#subtitle", { opacity: 1, duration: 1 }, "-=1");
+
+        // 4. 捲動揭曉動畫 (Scroll Reveal)
+        gsap.registerPlugin(ScrollTrigger);
+        document.querySelectorAll('.reveal').forEach((el) => {
+            gsap.from(el, {
+                scrollTrigger: {
+                    trigger: el,
+                    start: "top 80%",
+                },
+                opacity: 0,
+                y: 50,
+                duration: 1,
+                ease: "power2.out"
+            });
+        });
+    </script>
+</body>
+</html>
