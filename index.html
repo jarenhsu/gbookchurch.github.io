@@ -11,22 +11,22 @@
     
     <style>
         :root {
-            --primary-orange: #FF7A32; /* 飽和度稍高的活力橙 */
-            --primary-green: #88B04B;  /* 經典草綠 */
-            --bg-light: #F9F9F7;
+            --primary-orange: #FF7A32;
+            --primary-green: #88B04B;
+            --bg-light: #FDFBF7;
         }
         body { background-color: var(--bg-light); color: #333; cursor: none; overflow-x: hidden; font-family: 'PingFang TC', sans-serif; }
         
         #cursor {
             width: 35px; height: 35px; border: 3px solid var(--primary-green); border-radius: 50%;
             position: fixed; pointer-events: none; z-index: 9999;
-            background: rgba(136, 176, 75, 0.15);
+            background: rgba(136, 176, 75, 0.1);
             transition: transform 0.1s ease;
         }
 
         .blob {
             position: absolute; width: 600px; height: 600px; border-radius: 50%;
-            filter: blur(120px); opacity: 0.15; z-index: -1; animation: float 20s infinite alternate;
+            filter: blur(120px); opacity: 0.12; z-index: -1; animation: float 20s infinite alternate;
         }
         @keyframes float {
             from { transform: translate(-5%, -5%) rotate(0deg); }
@@ -37,14 +37,14 @@
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(12px);
             border: 2px solid #fff;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.04);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.03);
             border-radius: 40px;
         }
 
         .btn-vibrant {
             background: var(--primary-orange);
             color: white;
-            box-shadow: 0 10px 25px rgba(255, 122, 50, 0.4);
+            box-shadow: 0 10px 25px rgba(255, 122, 50, 0.3);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .btn-vibrant:hover { transform: scale(1.08) rotate(2deg); }
@@ -65,14 +65,14 @@
 
     <section class="h-screen w-full flex flex-col items-center justify-center relative px-6 text-center">
         <div id="hero-content">
-            <div class="inline-block px-6 py-2 bg-orange-100 text-orange-600 rounded-full text-sm font-black mb-8 tracking-widest animate-pulse">
-                NEW EPISODE OUT NOW
+            <div class="inline-block px-6 py-2 bg-orange-100 text-orange-600 rounded-full text-sm font-black mb-8 tracking-widest">
+                CHRISTIAN REBEL PODCAST
             </div>
-            <h1 class="text-7xl md:text-[10rem] font-black tracking-tighter mb-6 text-gradient leading-none">
+            <h1 class="text-7xl md:text-[9rem] font-black tracking-tighter mb-6 text-gradient leading-none">
                 教會小本本
             </h1>
             <p class="text-xl md:text-3xl font-bold text-gray-400 max-w-2xl mx-auto leading-relaxed">
-                🤘 聊聊那些被「消音」的信仰心聲
+                🤘 聊那些教會不愛聊的事，說心裡話
             </p>
         </div>
         <div class="mt-20 flex gap-4">
@@ -84,7 +84,7 @@
 
     <section class="py-24 px-6 max-w-7xl mx-auto">
         <div class="grid lg:grid-cols-5 gap-8">
-            <div class="lg:col-span-3 glass-card p-10 md:p-16 flex flex-col justify-between reveal">
+            <div class="lg:col-span-3 glass-card p-10 md:p-14 flex flex-col justify-between reveal">
                 <div>
                     <h2 class="text-5xl font-black mb-8">用愛心與誠實，<br><span class="text-orange-500 underline decoration-green-400 underline-offset-8">說出心裡話。</span></h2>
                     <p class="text-gray-500 text-xl mb-12 leading-relaxed font-medium">
@@ -92,8 +92,8 @@
                     </p>
                 </div>
                 
-                <div class="w-full rounded-3xl overflow-hidden shadow-xl">
-                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/show/3D2bE36Qj2b8XgV6W7tT6J?utm_source=generator&theme=0" width="100%" height="232" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="w-full rounded-3xl overflow-hidden shadow-xl bg-white">
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/show/3B07G39uG2M4q96i4F9XyA?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                 </div>
             </div>
 
@@ -109,7 +109,7 @@
         <div class="glass-card p-16 md:p-24 text-center max-w-4xl relative overflow-hidden bg-white/60">
             <div class="text-7xl mb-10">📖</div>
             <h2 class="text-5xl md:text-7xl font-black mb-10 italic text-gray-800 tracking-tight">你是哪位聖經人物？</h2>
-            <p class="text-gray-500 text-2xl mb-14 max-w-2xl mx-auto font-medium">
+            <p class="text-gray-500 text-2xl mb-14 max-w-2xl mx-auto font-medium leading-relaxed">
                 12 題測驗，直擊你的信仰靈魂。<br>找出最像你的聖經導師！
             </p>
             <a href="https://portaly.cc/gbookchurch" target="_blank" class="btn-vibrant inline-block px-16 py-6 rounded-full text-white font-black text-2xl tracking-widest">
@@ -119,11 +119,14 @@
     </section>
 
     <footer class="py-24 text-center">
-        <div class="flex justify-center gap-10 mb-12">
-            <a href="https://www.instagram.com/gbookchurch/" target="_blank" class="text-gray-400 hover:text-orange-500 font-bold transition-colors">INSTAGRAM</a>
-            <a href="https://portaly.cc/gbookchurch" target="_blank" class="text-gray-400 hover:text-green-600 font-bold transition-colors">LINKS</a>
+        <div class="flex flex-wrap justify-center gap-6 md:gap-12 mb-12">
+            <a href="https://www.instagram.com/gbookchurch/" target="_blank" class="text-orange-500 font-black hover:scale-110 transition-transform">INSTAGRAM</a>
+            <a href="https://portaly.cc/gbookchurch" target="_blank" class="text-green-600 font-black hover:scale-110 transition-transform">LINE 貼圖</a>
+            <a href="https://portaly.cc/gbookchurch" target="_blank" class="text-gray-400 font-black hover:scale-110 transition-transform">贊助支持</a>
         </div>
-        <p class="text-xs text-gray-300 font-black tracking-[0.5em]">KEEP IT REAL • KEEP IT FAITHFUL</p>
+        <div class="w-20 h-1 bg-gray-200 mx-auto mb-10 rounded-full"></div>
+        <p class="text-xs text-gray-300 font-black tracking-[0.6em]">KEEP IT REAL • KEEP IT FAITHFUL</p>
+        <p class="text-[10px] mt-4 text-gray-300 italic">© 2026 教會小本本 GBOOKCHURCH</p>
     </footer>
 
     <script>
@@ -137,13 +140,12 @@
         });
 
         gsap.registerPlugin(ScrollTrigger);
-        const tl = gsap.timeline();
-        tl.from("#hero-content", { opacity: 0, scale: 0.9, duration: 1.5, ease: "expo.out" });
+        gsap.from("#hero-content", { opacity: 0, scale: 0.9, duration: 2, ease: "expo.out" });
 
         document.querySelectorAll('.reveal').forEach((el) => {
             gsap.from(el, {
                 scrollTrigger: { trigger: el, start: "top 90%" },
-                opacity: 0, y: 60, scale: 0.95, duration: 1.2, ease: "power3.out"
+                opacity: 0, y: 80, duration: 1.2, ease: "power3.out"
             });
         });
     </script>
