@@ -13,14 +13,25 @@
         :root { --primary-orange: #FF7A32; --primary-green: #88B04B; --bg-light: #FDFBF7; }
         body { background-color: var(--bg-light); color: #333; cursor: none; overflow-x: hidden; font-family: 'PingFang TC', sans-serif; }
         #cursor { width: 35px; height: 35px; border: 3px solid var(--primary-green); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; background: rgba(136, 176, 75, 0.1); transition: transform 0.1s ease; }
+        
         .blob { position: absolute; width: 600px; height: 600px; border-radius: 50%; filter: blur(120px); opacity: 0.15; z-index: -1; animation: float 20s infinite alternate; }
         @keyframes float { from { transform: translate(-5%, -5%) rotate(0deg); } to { transform: translate(10%, 15%) rotate(20deg); } }
-        .glass-card { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(15px); border: 2px solid #fff; box-shadow: 0 30px 60px rgba(0,0,0,0.03); border-radius: 40px; }
+        
+        .glass-card { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(15px); border: 2px solid #fff; box-shadow: 0 30px 60px rgba(0,0,0,0.03); border-radius: 40px; transition: all 0.3s ease; }
+        .glass-card:hover { transform: translateY(-5px); box-shadow: 0 40px 80px rgba(0,0,0,0.06); }
+        
         .btn-vibrant { background: var(--primary-orange); color: white; box-shadow: 0 10px 25px rgba(255, 122, 50, 0.3); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .btn-vibrant:hover { transform: scale(1.08) rotate(2deg); }
+        
         .text-gradient { background: linear-gradient(to right, var(--primary-orange), var(--primary-green)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        /* 滾動條美化 */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-thumb { background: var(--primary-green); border-radius: 10px; }
+        
+        .category-tag { @apply px-4 py-1 rounded-full text-xs font-bold border transition-all; }
+        .tag-orange { @apply border-orange-200 text-orange-600 bg-orange-50 hover:bg-orange-500 hover:text-white; }
+        .tag-green { @apply border-green-200 text-green-600 bg-green-50 hover:bg-green-500 hover:text-white; }
     </style>
 </head>
 <body>
@@ -30,7 +41,7 @@
 
     <section class="h-screen w-full flex flex-col items-center justify-center relative px-6 text-center">
         <div id="hero-content">
-            <div class="inline-block px-6 py-2 bg-green-100 text-green-700 rounded-full text-xs font-black mb-8 tracking-[0.3em] uppercase animate-pulse">Ep. 100+ Available</div>
+            <div class="inline-block px-6 py-2 bg-orange-100 text-orange-600 rounded-full text-xs font-black mb-8 tracking-[0.3em] uppercase animate-pulse">100+ Episodes & Counting</div>
             <h1 class="text-7xl md:text-[9rem] font-black tracking-tighter mb-6 text-gradient leading-none">教會小本本</h1>
             <p class="text-xl md:text-3xl font-bold text-gray-400 max-w-2xl mx-auto leading-relaxed italic">🤘 誠實說出那些被教會消音的心裡話</p>
         </div>
@@ -42,37 +53,78 @@
     </section>
 
     <section class="py-24 px-6 max-w-[1400px] mx-auto">
-        <div class="flex flex-col gap-6 mb-12 reveal">
-            <h2 class="text-5xl md:text-6xl font-black">豐富節目庫</h2>
-            <div class="h-2 w-32 bg-orange-500 rounded-full"></div>
+        <div class="flex items-end justify-between mb-12 reveal">
+            <div>
+                <h2 class="text-5xl md:text-6xl font-black mb-4">精彩節目庫</h2>
+                <div class="h-2 w-32 bg-orange-500 rounded-full"></div>
+            </div>
+            <div class="hidden md:block text-right text-gray-400 font-bold tracking-widest">SCROLL TO EXPLORE</div>
         </div>
 
         <div class="grid lg:grid-cols-12 gap-8 items-start">
-            <div class="lg:col-span-8 glass-card p-6 md:p-8 reveal">
-                <div class="aspect-video w-full overflow-hidden rounded-[30px] shadow-2xl">
-                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/videoseries?list=PL9d9t6kvVqkviKMqcGZwes8a_1qUFIqJg" title="Main Player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <div class="lg:col-span-8 space-y-8">
+                <div class="glass-card p-6 md:p-8 reveal">
+                    <div class="aspect-video w-full overflow-hidden rounded-[30px] shadow-2xl bg-gray-100">
+                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/videoseries?list=PL9d9t6kvVqkviKMqcGZwes8a_1qUFIqJg" title="Main Player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+                    <div class="mt-8 flex flex-wrap gap-3 mb-4">
+                        <span class="category-tag tag-orange font-black">#最新集數</span>
+                        <span class="category-tag tag-green font-black">#信仰反思</span>
+                        <span class="category-tag tag-orange font-black">#真心話</span>
+                    </div>
+                    <h3 class="text-3xl font-black mb-4">這不是一本乖乖牌的筆記</h3>
+                    <p class="text-gray-500 text-lg leading-relaxed font-medium">在這裡，我們不避諱任何話題。從牧師的身心健康、信徒的離婚掙扎，到最熱門的聖經 MBTI 解析，所有你想聽卻不敢問的，小本本都為你準備好了。</p>
                 </div>
-                <div class="mt-8">
-                    <h3 class="text-2xl font-bold mb-4 text-orange-600">最新集數即時看</h3>
-                    <p class="text-gray-500 font-medium">我們不說教，我們只說真心話。在這裡，你可以找到所有關於身心健康、信仰反思與人生故事的精彩集數。</p>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="glass-card p-8 reveal" style="transition-delay: 0.1s">
+                        <div class="text-4xl mb-4 text-orange-500">🎧</div>
+                        <h4 class="text-xl font-black mb-2">多平台同步</h4>
+                        <p class="text-gray-500 text-sm">除了 YouTube，您也可以在各大 Podcast 平台搜尋「教會小本本」隨時收聽。</p>
+                    </div>
+                    <div class="glass-card p-8 reveal" style="transition-delay: 0.2s">
+                        <div class="text-4xl mb-4 text-green-500">💬</div>
+                        <h4 class="text-xl font-black mb-2">每週更新</h4>
+                        <p class="text-gray-500 text-sm">我們維持高頻率更新，確保您每週都有新鮮的信仰觀點可以碰撞。</p>
+                    </div>
                 </div>
             </div>
 
-            <div class="lg:col-span-4 flex flex-col gap-6 reveal" style="transition-delay: 0.2s">
-                <div class="glass-card p-8 bg-green-50/50 border-green-100">
-                    <h4 class="text-xl font-black mb-4 text-green-700 italic">精選專題</h4>
-                    <ul class="flex flex-col gap-4 text-gray-600 font-bold">
-                        <li class="flex items-center gap-3"><span class="w-2 h-2 bg-orange-400 rounded-full"></span> MBTI 聖經人格解析</li>
-                        <li class="flex items-center gap-3"><span class="w-2 h-2 bg-orange-400 rounded-full"></span> 牧師也會進精神病院？</li>
-                        <li class="flex items-center gap-3"><span class="w-2 h-2 bg-orange-400 rounded-full"></span> 離婚故事與信仰衝突</li>
-                        <li class="flex items-center gap-3"><span class="w-2 h-2 bg-orange-400 rounded-full"></span> 本本讀書會系列</li>
+            <div class="lg:col-span-4 space-y-6 reveal" style="transition-delay: 0.3s">
+                <div class="glass-card p-8 bg-green-50/30 border-green-100 relative overflow-hidden">
+                    <div class="absolute -right-4 -top-4 text-8xl opacity-5 grayscale">📜</div>
+                    <h4 class="text-2xl font-black mb-6 text-green-700 italic border-b-2 border-green-200 pb-2">精選必聽</h4>
+                    <ul class="space-y-6">
+                        <li class="group cursor-pointer">
+                            <p class="text-xs text-orange-500 font-black mb-1">SERIES 01</p>
+                            <p class="text-lg font-bold group-hover:text-orange-500 transition-colors tracking-tight">MBTI 聖經人格大解析</p>
+                        </li>
+                        <li class="group cursor-pointer">
+                            <p class="text-xs text-orange-500 font-black mb-1">SERIES 02</p>
+                            <p class="text-lg font-bold group-hover:text-orange-500 transition-colors tracking-tight">牧師的身心健康筆記</p>
+                        </li>
+                        <li class="group cursor-pointer">
+                            <p class="text-xs text-orange-500 font-black mb-1">SERIES 03</p>
+                            <p class="text-lg font-bold group-hover:text-orange-500 transition-colors tracking-tight">離婚故事與信仰修復</p>
+                        </li>
+                        <li class="group cursor-pointer">
+                            <p class="text-xs text-orange-500 font-black mb-1">SERIES 04</p>
+                            <p class="text-lg font-bold group-hover:text-orange-500 transition-colors tracking-tight">本本讀書會：深度書評</p>
+                        </li>
                     </ul>
                 </div>
 
                 <div class="glass-card p-4">
-                    <div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-lg">
-                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/videoseries?list=PL9d9t6kvVqkviKMqcGZwes8a_1qUFIqJg&index=2" frameborder="0"></iframe>
+                    <div class="aspect-[4/3] rounded-[25px] overflow-hidden shadow-lg mb-4">
+                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/videoseries?list=PL9d9t6kvVqkviKMqcGZwes8a_1qUFIqJg&index=5" frameborder="0"></iframe>
                     </div>
+                    <p class="text-center font-black text-sm text-gray-400 tracking-tighter italic">更多精彩集數持續上架中</p>
+                </div>
+
+                <div class="btn-vibrant p-8 rounded-[40px] text-center">
+                    <h5 class="font-black text-xl mb-2">喜歡我們的內容嗎？</h5>
+                    <p class="text-sm text-white/80 mb-6 font-bold">點擊下方按鈕支持我們繼續說下去！</p>
+                    <a href="https://portaly.cc/gbookchurch" target="_blank" class="bg-white text-orange-600 px-6 py-2 rounded-full font-black text-sm inline-block shadow-lg">贊助連結 ☕️</a>
                 </div>
             </div>
         </div>
@@ -80,18 +132,19 @@
 
     <section class="py-32 px-6 flex justify-center reveal">
         <div class="glass-card p-16 md:p-24 text-center max-w-4xl relative overflow-hidden bg-white/60">
+            <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-orange-400 to-green-400"></div>
             <div class="text-7xl mb-10">📖</div>
-            <h2 class="text-5xl md:text-7xl font-black mb-10 italic text-gray-800 tracking-tight">你是哪位聖經人物？</h2>
+            <h2 class="text-5xl md:text-7xl font-black mb-10 italic text-gray-800 tracking-tight leading-tight">你是哪位<br><span class="text-green-600">聖經人物？</span></h2>
             <p class="text-gray-500 text-2xl mb-14 max-w-2xl mx-auto font-medium leading-relaxed">12 題測驗，直擊你的信仰靈魂。<br>找出最像你的聖經導師！</p>
-            <a href="https://portaly.cc/gbookchurch" target="_blank" class="btn-vibrant inline-block px-16 py-6 rounded-full text-white font-black text-2xl tracking-widest">立即開測 🚀</a>
+            <a href="https://portaly.cc/gbookchurch" target="_blank" class="btn-vibrant inline-block px-16 py-6 rounded-full text-white font-black text-2xl tracking-widest shadow-2xl">立即開測 🚀</a>
         </div>
     </section>
 
-    <footer class="py-24 text-center">
-        <div class="flex flex-wrap justify-center gap-6 md:gap-12 mb-12 text-lg">
-            <a href="https://www.instagram.com/gbookchurch/" target="_blank" class="text-orange-500 font-black hover:scale-110 transition-transform tracking-widest">INSTAGRAM</a>
-            <a href="https://portaly.cc/gbookchurch" target="_blank" class="text-green-600 font-black hover:scale-110 transition-transform tracking-widest">LINE 貼圖</a>
-            <a href="https://portaly.cc/gbookchurch" target="_blank" class="text-gray-400 font-black hover:scale-110 transition-transform tracking-widest">贊助支持</a>
+    <footer class="py-24 text-center border-t border-gray-100">
+        <div class="flex flex-wrap justify-center gap-6 md:gap-16 mb-12 text-lg font-black">
+            <a href="https://www.instagram.com/gbookchurch/" target="_blank" class="text-orange-500 hover:scale-110 transition-transform tracking-widest">INSTAGRAM</a>
+            <a href="https://portaly.cc/gbookchurch" target="_blank" class="text-green-600 hover:scale-110 transition-transform tracking-widest">LINE 貼圖</a>
+            <a href="https://portaly.cc/gbookchurch" target="_blank" class="text-gray-400 hover:scale-110 transition-transform tracking-widest">官方網站</a>
         </div>
         <div class="w-20 h-1 bg-gray-200 mx-auto mb-10 rounded-full"></div>
         <p class="text-xs text-gray-300 font-black tracking-[0.6em]">KEEP IT REAL • KEEP IT FAITHFUL</p>
@@ -101,11 +154,21 @@
         const lenis = new Lenis();
         function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
         requestAnimationFrame(raf);
+        
         const cursor = document.querySelector('#cursor');
-        window.addEventListener('mousemove', (e) => { gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.4, ease: "power2.out" }); });
+        window.addEventListener('mousemove', (e) => { 
+            gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.4, ease: "power2.out" }); 
+        });
+
         gsap.registerPlugin(ScrollTrigger);
-        gsap.from("#hero-content", { opacity: 0, scale: 0.9, duration: 2, ease: "expo.out" });
-        document.querySelectorAll('.reveal').forEach((el) => { gsap.from(el, { scrollTrigger: { trigger: el, start: "top 90%" }, opacity: 0, y: 80, duration: 1.2, ease: "power3.out" }); });
+        gsap.from("#hero-content", { opacity: 0, scale: 0.95, y: 30, duration: 2, ease: "expo.out" });
+
+        document.querySelectorAll('.reveal').forEach((el) => {
+            gsap.from(el, {
+                scrollTrigger: { trigger: el, start: "top 92%" },
+                opacity: 0, y: 50, duration: 1.2, ease: "power3.out"
+            });
+        });
     </script>
 </body>
 </html>
