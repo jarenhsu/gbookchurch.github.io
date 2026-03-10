@@ -13,12 +13,14 @@
         :root { --primary-orange: #FF7A32; --primary-green: #88B04B; --bg-light: #FDFBF7; }
         body { background-color: var(--bg-light); color: #333; cursor: none; overflow-x: hidden; font-family: 'PingFang TC', sans-serif; }
         #cursor { width: 35px; height: 35px; border: 3px solid var(--primary-green); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; background: rgba(136, 176, 75, 0.1); transition: transform 0.1s ease; }
-        .blob { position: absolute; width: 600px; height: 600px; border-radius: 50%; filter: blur(120px); opacity: 0.12; z-index: -1; animation: float 20s infinite alternate; }
+        .blob { position: absolute; width: 600px; height: 600px; border-radius: 50%; filter: blur(120px); opacity: 0.15; z-index: -1; animation: float 20s infinite alternate; }
         @keyframes float { from { transform: translate(-5%, -5%) rotate(0deg); } to { transform: translate(10%, 15%) rotate(20deg); } }
-        .glass-card { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); border: 2px solid #fff; box-shadow: 0 30px 60px rgba(0,0,0,0.03); border-radius: 40px; }
+        .glass-card { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(15px); border: 2px solid #fff; box-shadow: 0 30px 60px rgba(0,0,0,0.03); border-radius: 40px; }
         .btn-vibrant { background: var(--primary-orange); color: white; box-shadow: 0 10px 25px rgba(255, 122, 50, 0.3); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .btn-vibrant:hover { transform: scale(1.08) rotate(2deg); }
         .text-gradient { background: linear-gradient(to right, var(--primary-orange), var(--primary-green)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: var(--primary-green); border-radius: 10px; }
     </style>
 </head>
 <body>
@@ -28,9 +30,9 @@
 
     <section class="h-screen w-full flex flex-col items-center justify-center relative px-6 text-center">
         <div id="hero-content">
-            <div class="inline-block px-6 py-2 bg-orange-100 text-orange-600 rounded-full text-sm font-black mb-8 tracking-widest uppercase">Christian Rebel Podcast</div>
+            <div class="inline-block px-6 py-2 bg-green-100 text-green-700 rounded-full text-xs font-black mb-8 tracking-[0.3em] uppercase animate-pulse">Ep. 100+ Available</div>
             <h1 class="text-7xl md:text-[9rem] font-black tracking-tighter mb-6 text-gradient leading-none">教會小本本</h1>
-            <p class="text-xl md:text-3xl font-bold text-gray-400 max-w-2xl mx-auto leading-relaxed">🤘 聊那些教會不愛聊的事，說心裡話</p>
+            <p class="text-xl md:text-3xl font-bold text-gray-400 max-w-2xl mx-auto leading-relaxed italic">🤘 誠實說出那些被教會消音的心裡話</p>
         </div>
         <div class="mt-20 flex gap-4">
             <div class="w-4 h-4 bg-orange-400 rounded-full animate-bounce"></div>
@@ -39,20 +41,38 @@
         </div>
     </section>
 
-    <section class="py-24 px-6 max-w-7xl mx-auto">
-        <div class="grid lg:grid-cols-5 gap-8">
-            <div class="lg:col-span-3 glass-card p-10 md:p-14 flex flex-col justify-between reveal">
-                <div>
-                    <h2 class="text-5xl font-black mb-8">用愛心與誠實，<br><span class="text-orange-500 underline decoration-green-400 underline-offset-8">說出心裡話。</span></h2>
-                    <p class="text-gray-500 text-xl mb-12 leading-relaxed font-medium">這不是一本乖乖牌的筆記，這是屬於你的「小本本」。我們不說教，我們只說真心話。</p>
+    <section class="py-24 px-6 max-w-[1400px] mx-auto">
+        <div class="flex flex-col gap-6 mb-12 reveal">
+            <h2 class="text-5xl md:text-6xl font-black">豐富節目庫</h2>
+            <div class="h-2 w-32 bg-orange-500 rounded-full"></div>
+        </div>
+
+        <div class="grid lg:grid-cols-12 gap-8 items-start">
+            <div class="lg:col-span-8 glass-card p-6 md:p-8 reveal">
+                <div class="aspect-video w-full overflow-hidden rounded-[30px] shadow-2xl">
+                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/videoseries?list=PL9d9t6kvVqkviKMqcGZwes8a_1qUFIqJg" title="Main Player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                 </div>
-                <div class="w-full rounded-3xl overflow-hidden shadow-xl bg-white" style="min-height: 352px;">
-                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/show/47h3N9Wp3XUq8G0x6F4YxS?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="mt-8">
+                    <h3 class="text-2xl font-bold mb-4 text-orange-600">最新集數即時看</h3>
+                    <p class="text-gray-500 font-medium">我們不說教，我們只說真心話。在這裡，你可以找到所有關於身心健康、信仰反思與人生故事的精彩集數。</p>
                 </div>
             </div>
-            <div class="lg:col-span-2 glass-card p-6 reveal" style="transition-delay: 0.2s">
-                <div class="h-full w-full overflow-hidden rounded-[30px] shadow-2xl">
-                    <iframe class="w-full h-full aspect-[9/16]" src="https://www.youtube.com/embed/videoseries?list=PL9d9t6kvVqkviKMqcGZwes8a_1qUFIqJg" title="YouTube playlist" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+            <div class="lg:col-span-4 flex flex-col gap-6 reveal" style="transition-delay: 0.2s">
+                <div class="glass-card p-8 bg-green-50/50 border-green-100">
+                    <h4 class="text-xl font-black mb-4 text-green-700 italic">精選專題</h4>
+                    <ul class="flex flex-col gap-4 text-gray-600 font-bold">
+                        <li class="flex items-center gap-3"><span class="w-2 h-2 bg-orange-400 rounded-full"></span> MBTI 聖經人格解析</li>
+                        <li class="flex items-center gap-3"><span class="w-2 h-2 bg-orange-400 rounded-full"></span> 牧師也會進精神病院？</li>
+                        <li class="flex items-center gap-3"><span class="w-2 h-2 bg-orange-400 rounded-full"></span> 離婚故事與信仰衝突</li>
+                        <li class="flex items-center gap-3"><span class="w-2 h-2 bg-orange-400 rounded-full"></span> 本本讀書會系列</li>
+                    </ul>
+                </div>
+
+                <div class="glass-card p-4">
+                    <div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-lg">
+                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/videoseries?list=PL9d9t6kvVqkviKMqcGZwes8a_1qUFIqJg&index=2" frameborder="0"></iframe>
+                    </div>
                 </div>
             </div>
         </div>
@@ -69,9 +89,9 @@
 
     <footer class="py-24 text-center">
         <div class="flex flex-wrap justify-center gap-6 md:gap-12 mb-12 text-lg">
-            <a href="https://www.instagram.com/gbookchurch/" target="_blank" class="text-orange-500 font-black hover:scale-110 transition-transform">INSTAGRAM</a>
-            <a href="https://portaly.cc/gbookchurch" target="_blank" class="text-green-600 font-black hover:scale-110 transition-transform">LINE 貼圖</a>
-            <a href="https://portaly.cc/gbookchurch" target="_blank" class="text-gray-400 font-black hover:scale-110 transition-transform">贊助支持</a>
+            <a href="https://www.instagram.com/gbookchurch/" target="_blank" class="text-orange-500 font-black hover:scale-110 transition-transform tracking-widest">INSTAGRAM</a>
+            <a href="https://portaly.cc/gbookchurch" target="_blank" class="text-green-600 font-black hover:scale-110 transition-transform tracking-widest">LINE 貼圖</a>
+            <a href="https://portaly.cc/gbookchurch" target="_blank" class="text-gray-400 font-black hover:scale-110 transition-transform tracking-widest">贊助支持</a>
         </div>
         <div class="w-20 h-1 bg-gray-200 mx-auto mb-10 rounded-full"></div>
         <p class="text-xs text-gray-300 font-black tracking-[0.6em]">KEEP IT REAL • KEEP IT FAITHFUL</p>
